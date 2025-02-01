@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Storage Hub</title>
+  <script src="https://cdn.jsdelivr.net/npm/cross-storage/dist/hub.min.js"></script>
+</head>
+<body>
+  <script>
+    console.log(window.location.origin);
+    document.addEventListener('DOMContentLoaded', () => {
+      function generateOriginFormat(url) {
+        // Parse the URL to extract the origin
+        try {
+          const parsedUrl = new URL(url);
+          const protocol = parsedUrl.protocol.replace(':', '\\:'); // Escape ":" for regex
+          const hostname = parsedUrl.hostname.replace(/\./g, '\\.'); // Escape "." for regex
+          const port = parsedUrl.port ? `:${parsedUrl.port}` : ''; // Add port if present
+          return new RegExp(`${protocol}\\/\\/${hostname}${port}$`);
+        } catch (error) {
+          console.error('Invalid URL:', error);
+          return null;
+        }
+      }  
+
+      // Initialize Cross Storage Hub and allow access from all clients
+      CrossStorageHub.init([
+        { origin: /.*/, allow: ['get', 'set', 'del'] },
+      ]);
+
+      // Alternatively, dynamically allow the origin of the connecting client
+      /*
+      CrossStorageHub.on('request', (request) => {
+        const origin = request.origin;
+        CrossStorageHub.init([
+          { origin: generateOriginFormat(origin), allow: ['get', 'set', 'del'] },
+        ]);
+      });
+      */
+    });
+  </script>
+  <h1>Storage Hub Active</h1>
+</body>
+</html>
