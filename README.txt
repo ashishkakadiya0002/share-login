@@ -1,114 +1,82 @@
-=== Plugin Name ===
-Contributors: (this should be a list of wordpress.org userid's)
+=== Share Login ===
+Contributors: ashishkakadiya
 Donate link: https://sharelogin.com/
-Tags: comments, spam
-Requires at least: 3.0.1
-Tested up to: 3.4
-Stable tag: 4.3
+Tags: shared login, auto login, multi-site login, cross-domain login
+Requires at least: 5.0
+Tested up to: 6.4.3
+Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Here is a short description of the plugin.  This should be no more than 150 characters.  No markup here.
+Automatically synchronize user logins between two WordPress websites - when users log into the main site, they'll be automatically logged into the sync site.
 
 == Description ==
 
-This is the long description.  No limit, and you can use Markdown (as well as in the following sections).
+Share Login enables automatic login synchronization between two WordPress websites. When configured, this plugin allows users who log into your main website to be automatically logged into the secondary (sync) website without requiring a separate login.
 
-For backwards compatibility, if this section is missing, the full length of the short description will be used, and
-Markdown parsed.
+**Key Features:**
 
-A few notes about the sections above:
+* Configure one WordPress site as the main site and another as the sync site
+* Automatic login on the sync site when users log into the main site
+* Secure authentication token handling
+* Easy to set up and configure
+* Works across different domains
 
-*   "Contributors" is a comma separated list of wp.org/wp-plugins.org usernames
-*   "Tags" is a comma separated list of tags that apply to the plugin
-*   "Requires at least" is the lowest version that the plugin will work on
-*   "Tested up to" is the highest version that you've *successfully used to test the plugin*. Note that it might work on
-higher versions... this is just the highest one you've verified.
-*   Stable tag should indicate the Subversion "tag" of the latest stable version, or "trunk," if you use `/trunk/` for
-stable.
+**Use Cases:**
 
-    Note that the `readme.txt` of the stable tag is the one that is considered the defining one for the plugin, so
-if the `/trunk/readme.txt` file says that the stable tag is `4.3`, then it is `/tags/4.3/readme.txt` that'll be used
-for displaying information about the plugin.  In this situation, the only thing considered from the trunk `readme.txt`
-is the stable tag pointer.  Thus, if you develop in trunk, you can update the trunk `readme.txt` to reflect changes in
-your in-development version, without having that information incorrectly disclosed about the current stable version
-that lacks those changes -- as long as the trunk's `readme.txt` points to the correct stable tag.
-
-    If no stable tag is provided, it is assumed that trunk is stable, but you should specify "trunk" if that's where
-you put the stable version, in order to eliminate any doubt.
+* Multiple WordPress websites that share the same user base
+* Member sites that require access to multiple platforms
+* Educational institutions with multiple web properties
+* Business websites with separate customer portals
 
 == Installation ==
 
-This section describes how to install the plugin and get it working.
-
-e.g.
-
-1. Upload `share-login.php` to the `/wp-content/plugins/` directory
-1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Place `<?php do_action('plugin_name_hook'); ?>` in your templates
+1. Upload the `share-login` folder to the `/wp-content/plugins/` directory
+2. Activate the plugin through the 'Plugins' menu in WordPress
+3. Go to Settings > Share Login to configure your main and sync sites
+4. On the main site, enter the sync site's URL and authentication key
+5. On the sync site, enter the main site's URL and the same authentication key
+6. Test the configuration by logging into the main site
 
 == Frequently Asked Questions ==
 
-= A question that someone might have =
+= How does the automatic login work? =
 
-An answer to that question.
+When a user logs into the main site, the plugin generates a secure token that is passed to the sync site. The sync site validates this token and automatically logs in the corresponding user.
 
-= What about foo bar? =
+= Is this secure? =
 
-Answer to foo bar dilemma.
+Yes, the plugin uses secure authentication tokens and WordPress nonces to ensure the login synchronization process is safe and secure.
+
+= Can I use this with more than two sites? =
+
+Currently, the plugin supports one main site and one sync site configuration. Future versions may include support for multiple sync sites.
 
 == Screenshots ==
 
-1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif). Note that the screenshot is taken from
-the /assets directory or the directory that contains the stable readme.txt (tags or trunk). Screenshots in the /assets
-directory take precedence. For example, `/assets/screenshot-1.png` would win over `/tags/4.3/screenshot-1.png`
-(or jpg, jpeg, gif).
-2. This is the second screen shot
+1. Main site configuration screen
+2. Sync site configuration screen
+3. Successful login synchronization
 
 == Changelog ==
 
-= 1.0 =
-* A change since the previous version.
-* Another change.
-
-= 0.5 =
-* List versions from most recent at top to oldest at bottom.
+= 1.0.0 =
+* Initial release
+* Main and sync site configuration
+* Automatic login synchronization
+* Security token handling
 
 == Upgrade Notice ==
 
-= 1.0 =
-Upgrade notices describe the reason a user should upgrade.  No more than 300 characters.
+= 1.0.0 =
+Initial release of Share Login plugin.
 
-= 0.5 =
-This version fixes a security related bug.  Upgrade immediately.
+== Configuration ==
 
-== Arbitrary section ==
+**Main Site Setup:**
+1. Enter the sync site URL
+2. Generate and save the authentication key
 
-You may provide arbitrary sections, in the same format as the ones above.  This may be of use for extremely complicated
-plugins where more information needs to be conveyed that doesn't fit into the categories of "description" or
-"installation."  Arbitrary sections will be shown below the built-in sections outlined above.
-
-== A brief Markdown Example ==
-
-Ordered list:
-
-1. Some feature
-1. Another feature
-1. Something else about the plugin
-
-Unordered list:
-
-* something
-* something else
-* third thing
-
-Here's a link to [WordPress](http://wordpress.org/ "Your favorite software") and one to [Markdown's Syntax Documentation][markdown syntax].
-Titles are optional, naturally.
-
-[markdown syntax]: http://daringfireball.net/projects/markdown/syntax
-            "Markdown is what the parser uses to process much of the readme file"
-
-Markdown uses email style notation for blockquotes and I've been told:
-> Asterisks for *emphasis*. Double it up  for **strong**.
-
-`<?php code(); // goes in backticks ?>`
+**Sync Site Setup:**
+1. Enter the main site URL
+2. Enter the authentication key from the main site

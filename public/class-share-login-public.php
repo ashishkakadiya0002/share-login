@@ -120,9 +120,9 @@ class Share_Login_Public {
 			'body' => ['secret_key' => SL_MAIN_SITE_SECRET_KEY, 'token' => $token]
 		]);
 		$body = json_decode(wp_remote_retrieve_body($response), true);
-
+		
 		if(!isset($body['status']) || $body['status'] !== true){
-			$this->sl_logout();
+			// $this->sl_logout();
 			return;
 		}
 		
