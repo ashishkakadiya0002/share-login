@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   // Connect to Cross Storage Hub
-  const storage = new CrossStorageClient(shareLogin.plugin_url + 'public/partials/share-login-storage.html');
+  const storage = new CrossStorageClient(shareLogin.plugin_url + 'public/partials/share-login-storage.html?hub_js_url=' + shareLogin.hub_js_url);
   function getCookie(cname) {
       let name = cname + "=";
       let decodedCookie = decodeURIComponent(document.cookie);
@@ -19,10 +19,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // Set data
   storage.onConnect()
       .then(() => {
-      return storage.set('sl_token_recieved', getCookie('sl_token'));
+      return storage.set('slogin_token_recieved', getCookie('slogin_token'));
       })
       .then(() => {
-      console.log('Data successfully set by Client 1.', getCookie('sl_token'));
+      console.log('Data successfully set by Client 1.', getCookie('slogin_token'));
       })
       .catch(err => {
       console.error('Error in Client 1:', err);

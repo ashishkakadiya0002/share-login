@@ -1,6 +1,8 @@
 <?php
-$incomming_logout = !empty(get_option('sl_incomming_logout')) ? true : false;
-$incomming_user_creation = !empty(get_option('sl_incomming_user_creation')) ? true : false;
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
+$incomming_logout = !empty(get_option('slogin_incomming_logout')) ? true : false;
+$incomming_user_creation = !empty(get_option('slogin_incomming_user_creation')) ? true : false;
 ?>
 <div class='main-content mr-1 mt-2'>
     <div class="ui attached message">
@@ -26,14 +28,14 @@ $incomming_user_creation = !empty(get_option('sl_incomming_user_creation')) ? tr
         <div class="ui label">
             Main Site
         </div>
-        <input type="text" name="main_site_url" value="<?php echo esc_attr(get_option('sl_main_site_url', '')); ?>">
+        <input type="text" name="main_site_url" value="<?php echo esc_attr(get_option('slogin_main_site_url', '')); ?>">
         </div>
         <br>
         <div class="ui labeled input mt-1">
         <div class="ui label">
             Secret Key
         </div>
-        <input type="text" name="main_site_secret_key" value="<?php echo esc_attr(get_option('sl_main_site_secret_key', '')); ?>">
+        <input type="text" name="main_site_secret_key" value="<?php echo esc_attr(get_option('slogin_main_site_secret_key', '')); ?>">
         </div>
 
         <br>

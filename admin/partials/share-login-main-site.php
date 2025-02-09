@@ -1,7 +1,10 @@
 <?php
-$outgoing_logout = !empty(get_option('sl_outgoing_logout')) ? true : false;
-$outgoing_user_creation = !empty(get_option('sl_outgoing_user_creation')) ? true : false;
-$main_site_secret_key = !empty(get_option('sl_main_site_secret_key')) ? get_option('sl_main_site_secret_key') : '';
+
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
+$outgoing_logout = !empty(get_option('slogin_outgoing_logout')) ? true : false;
+$outgoing_user_creation = !empty(get_option('slogin_outgoing_user_creation')) ? true : false;
+$main_site_secret_key = !empty(get_option('slogin_main_site_secret_key')) ? get_option('slogin_main_site_secret_key') : '';
 ?>
 <div class='main-content mr-1 mt-2'>
     <div class="ui attached message">

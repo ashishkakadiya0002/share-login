@@ -3,7 +3,6 @@
 /**
  * The admin-specific functionality of the plugin.
  *
- * @link       https://sharelogin.com
  * @since      1.0.0
  *
  * @package    Share_Login
@@ -18,7 +17,7 @@
  *
  * @package    Share_Login
  * @subpackage Share_Login/admin
- * @author     Ashish Kakadiya <ashishkakadiya0002@gmail.com>
+ * @author     ashishkakadiya0002
  */
 class Share_Login_Admin {
 
@@ -69,9 +68,9 @@ class Share_Login_Admin {
 
 	public function share_login_page() {
 		if(isset($_GET['setup'])) {
-			require_once SL_PLUGIN_PATH . 'admin/partials/share-login-setup.php';
+			require_once SLOGIN_PLUGIN_PATH . 'admin/partials/share-login-setup.php';
 		} else {
-			require_once SL_PLUGIN_PATH . 'admin/partials/share-login-page.php';
+			require_once SLOGIN_PLUGIN_PATH . 'admin/partials/share-login-page.php';
 		}
 		wp_die();
 	}
@@ -81,23 +80,23 @@ class Share_Login_Admin {
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_styles() {
-
-		wp_enqueue_style( $this->plugin_name . '-admin', SL_PLUGIN_URL . 'admin/css/share-login-admin.css', array(), $this->version, 'all' );
-		wp_enqueue_style( $this->plugin_name . '-semantic', SL_PLUGIN_URL . 'admin/semantic/semantic.min.css', array(), $this->version, 'all' );
-
+	public function enqueue_styles($hook) {
+		if($hook == 'toplevel_page_share-login') {
+			wp_enqueue_style( $this->plugin_name . '-admin', SLOGIN_PLUGIN_URL . 'admin/css/share-login-admin.css', array(), $this->version, 'all' );
+			wp_enqueue_style( $this->plugin_name . '-semantic', SLOGIN_PLUGIN_URL . 'admin/semantic/semantic.min.css', array(), $this->version, 'all' );
+		}
 	}
 
 	public function login_admin_scripts() {
-		wp_enqueue_script( $this->plugin_name . '-admin', SL_PLUGIN_URL . 'admin/js/share-login.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name . '-admin', SLOGIN_PLUGIN_URL . 'admin/js/share-login.js', array( 'jquery' ), $this->version, false );
 		wp_localize_script( $this->plugin_name . '-admin', 'shareLogin', Share_Login_Helper::localize_data() );
 
-		wp_enqueue_script( $this->plugin_name . 'cross-storage-client', SL_PLUGIN_URL . 'public/js/client.min.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name . 'cross-storage-client', SLOGIN_PLUGIN_URL . 'public/js/cross-storage/client.min.js', array( 'jquery' ), $this->version, false );
 
-		if(SL_SITETYPE == 'main-site') {
-			wp_enqueue_script( $this->plugin_name . '-client1', SL_PLUGIN_URL . 'public/js/share-login-client1.js', array( 'jquery' ), $this->version, false );
-		}elseif(SL_SITETYPE == 'sync-login') {
-			wp_enqueue_script( $this->plugin_name . '-client2', SL_PLUGIN_URL . 'public/js/share-login-client2.js', array( 'jquery' ), $this->version, false );
+		if(SLOGIN_SITETYPE == 'main-site') {
+			wp_enqueue_script( $this->plugin_name . '-client1', SLOGIN_PLUGIN_URL . 'public/js/share-login-client1.js', array( 'jquery' ), $this->version, false );
+		}elseif(SLOGIN_SITETYPE == 'sync-login') {
+			wp_enqueue_script( $this->plugin_name . '-client2', SLOGIN_PLUGIN_URL . 'public/js/share-login-client2.js', array( 'jquery' ), $this->version, false );
 		}
 	}
 	
@@ -108,9 +107,9 @@ class Share_Login_Admin {
 	 */
 	public function enqueue_scripts() {
 		$this->login_admin_scripts();
-		wp_enqueue_script( $this->plugin_name . '-semantic', SL_PLUGIN_URL . 'admin/semantic/semantic.min.js', array( 'jquery' ), $this->version, false );
-		wp_enqueue_script( $this->plugin_name . '-setup', SL_PLUGIN_URL . 'admin/js/share-login-setup.js', array( 'jquery' ), $this->version, false );
-		wp_enqueue_script( $this->plugin_name . '-page', SL_PLUGIN_URL . 'admin/js/share-login-page.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name . '-semantic', SLOGIN_PLUGIN_URL . 'admin/semantic/semantic.min.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name . '-setup', SLOGIN_PLUGIN_URL . 'admin/js/share-login-setup.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name . '-page', SLOGIN_PLUGIN_URL . 'admin/js/share-login-page.js', array( 'jquery' ), $this->version, false );
 	}
 
 	public function login_enqueue_scripts() {

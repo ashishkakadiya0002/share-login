@@ -8,17 +8,15 @@
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.
  *
- * @link              https://sharelogin.com
  * @since             1.0.0
  * @package           Share_Login
  *
  * @wordpress-plugin
  * Plugin Name:       Share Login
- * Plugin URI:        https://sharelogin.com
  * Description:       Share Login
  * Version:           1.0.0
- * Author:            Ashish Kakadiya
- * Author URI:        https://sharelogin.com/
+ * Author:            ashishkakadiya0002
+ * Author URI:        https://profiles.wordpress.org/ashishkakadiya0002/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       share-login
@@ -41,7 +39,7 @@ define( 'SHARE_LOGIN_VERSION', '1.0.0' );
  * The code that runs during plugin activation.
  * This action is documented in includes/class-share-login-activator.php
  */
-function activate_share_login() {
+function slogin_activate() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-share-login-activator.php';
 	Share_Login_Activator::activate();
 }
@@ -50,13 +48,13 @@ function activate_share_login() {
  * The code that runs during plugin deactivation.
  * This action is documented in includes/class-share-login-deactivator.php
  */
-function deactivate_share_login() {
+function slogin_deactivate() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-share-login-deactivator.php';
 	Share_Login_Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_share_login' );
-register_deactivation_hook( __FILE__, 'deactivate_share_login' );
+register_activation_hook( __FILE__, 'slogin_activate' );
+register_deactivation_hook( __FILE__, 'slogin_deactivate' );
 
 /**
  * The core plugin class that is used to define internationalization,
@@ -73,10 +71,11 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-share-login.php';
  *
  * @since    1.0.0
  */
-function run_share_login() {
+function slogin_run() {
 
 	$plugin = new Share_Login();
 	$plugin->run();
 
 }
-run_share_login();
+slogin_run();
+

@@ -19,7 +19,6 @@
  * For more information, see the following discussion:
  * https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate/pull/123#issuecomment-28541913
  *
- * @link       https://sharelogin.com
  * @since      1.0.0
  *
  * @package    Share_Login
@@ -30,11 +29,11 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
 
-delete_option('sl_main_site_secret_key');
-delete_option('sl_outgoing_logout');
-delete_option('sl_outgoing_user_creation');
-delete_option('sl_incomming_logout');
-delete_option('sl_incomming_user_creation');
-delete_option('sl_sync_site_url');
-delete_option('sl_main_site_url');
-delete_option('sl_sitetype');
+delete_option('slogin_main_site_secret_key');
+delete_option('slogin_outgoing_logout');
+delete_option('slogin_outgoing_user_creation');
+delete_option('slogin_incomming_logout');
+delete_option('slogin_incomming_user_creation');
+delete_option('slogin_sync_site_url');
+delete_option('slogin_main_site_url');
+delete_option('slogin_sitetype');

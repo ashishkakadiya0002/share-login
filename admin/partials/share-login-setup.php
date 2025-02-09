@@ -1,3 +1,6 @@
+<?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+?>
 <div class='main-content mr-1 mt-2'>
   <div class="ui three top attached steps">
     <div class="active step" id="step-1">
@@ -24,7 +27,7 @@
   </div>
   <div class="ui active inline loader hidden" id="loader"></div>  
   <div class="ui attached segment" id="step-content">
-    <?php require_once SL_PLUGIN_PATH . 'admin/partials/step-1.php'; ?>
+    <?php require_once SLOGIN_PLUGIN_PATH . 'admin/partials/step-1.php'; ?>
   </div>
 
 </div>

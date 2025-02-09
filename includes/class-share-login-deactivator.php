@@ -3,7 +3,6 @@
 /**
  * Fired during plugin deactivation
  *
- * @link       https://sharelogin.com
  * @since      1.0.0
  *
  * @package    Share_Login
@@ -18,7 +17,7 @@
  * @since      1.0.0
  * @package    Share_Login
  * @subpackage Share_Login/includes
- * @author     Ashish Kakadiya <ashishkakadiya0002@gmail.com>
+ * @author     ashishkakadiya0002
  */
 class Share_Login_Deactivator {
 

@@ -1,14 +1,14 @@
 === Share Login ===
-Contributors: ashishkakadiya
-Donate link: https://sharelogin.com/
-Tags: shared login, auto login, multi-site login, cross-domain login
+Contributors: ashishkakadiya0002
+Tags: shared login, single sign-on, multi-site login, cross-domain login, sso
 Requires at least: 5.0
-Tested up to: 6.7.1
+Tested up to: 6.7
+Requires PHP: 7.4
 Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Automatically synchronize user logins between two WordPress websites - when users log into the main site, they'll be automatically logged into the sync site.
+Automatically synchronize user logins between WordPress websites, enabling seamless single sign-on functionality.
 
 == Description ==
 
@@ -21,6 +21,7 @@ Share Login enables automatic login synchronization between two WordPress websit
 * Secure authentication token handling
 * Easy to set up and configure
 * Works across different domains
+* Compatible with WooCommerce and other popular plugins
 
 **Use Cases:**
 
@@ -52,11 +53,24 @@ Yes, the plugin uses secure authentication tokens and WordPress nonces to ensure
 
 Currently, the plugin supports one main site and one sync site configuration. Future versions may include support for multiple sync sites.
 
+= What are the system requirements? =
+
+* WordPress 5.0 or higher
+* PHP 7.4 or higher
+* HTTPS enabled on both sites (recommended for security)
+* Cross-origin resource sharing (CORS) enabled
+
 == Screenshots ==
 
-1. Main site configuration screen
-2. Sync site configuration screen
-3. Successful login synchronization
+1. Share Login Setup
+2. Main site configuration step 1
+3. Main site configuration step 2
+4. Main site configuration step 3
+5. Main site Dashbord
+6. Sync site configuration step 1
+7. Sync site configuration step 2
+8. Sync site configuration step 3
+9. Sync site Dashbord
 
 == Changelog ==
 
@@ -80,3 +94,20 @@ Initial release of Share Login plugin.
 **Sync Site Setup:**
 1. Enter the main site URL
 2. Enter the authentication key from the main site
+
+== Third-Party Libraries ==
+
+This plugin includes the following third-party libraries, bundled locally within the plugin:
+
+1. Cross Storage
+* Version: 1.0.0
+* License: MIT
+* Source: https://github.com/zendesk/cross-storage
+* Local Path: public/js/cross-storage/
+
+2. Semantic UI
+* Version: 2.5.0
+* License: MIT
+* Source: https://github.com/Semantic-Org/Semantic-UI
+* Local Path: admin/semantic/
+

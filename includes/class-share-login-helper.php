@@ -21,10 +21,13 @@ class Share_Login_Helper {
 
     public static function get_base_url(){
         // Check if HTTP_HOST is set and sanitize it
-        $http_host = isset($_SERVER['HTTP_HOST']) ? wp_unslash($_SERVER['HTTP_HOST']) : '';
+        $http_host = isset($_SERVER['HTTP_HOST']) ? sanitize_text_field(wp_unslash($_SERVER['HTTP_HOST'])) : '';
+        // Sanitize HTTPS check
+        $is_https = isset($_SERVER['HTTPS']) ? sanitize_text_field(wp_unslash($_SERVER['HTTPS'])) : '';
+        
         return sprintf(
             "%s://%s",
-            isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http',
+            $is_https === 'on' ? 'https' : 'http',
             $http_host
         );
     }
@@ -46,10 +49,11 @@ class Share_Login_Helper {
             'nonce'   => wp_create_nonce('share-login-nonce'),
             'plugin_dashboard_url' => admin_url('admin.php?page=share-login'),
             'site_origin' => Share_Login_Helper::get_base_url(),
-            'sync_origin' => Share_Login_Helper::get_url_to_base(SL_SYNC_SITE_URL),
-            'main_site_url' => SL_MAIN_SITE_URL,
-            'sync_site_url' => SL_SYNC_SITE_URL,
-            'plugin_url' => SL_PLUGIN_URL,
+            'sync_origin' => Share_Login_Helper::get_url_to_base(SLOGIN_SYNC_SITE_URL),
+            'main_site_url' => SLOGIN_MAIN_SITE_URL,
+            'sync_site_url' => SLOGIN_SYNC_SITE_URL,
+            'plugin_url' => SLOGIN_PLUGIN_URL,
+            'hub_js_url' => SLOGIN_PLUGIN_URL . 'public/js/cross-storage/hub.min.js',
 		);
 		return $data;
 	}    

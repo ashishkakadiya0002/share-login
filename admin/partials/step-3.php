@@ -1,14 +1,16 @@
 <?php
 
-$sitetype = get_option('sl_sitetype', '');
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
+$sitetype = get_option('slogin_sitetype', '');
 
 if($sitetype == 'main-site'){
-    $main_site_secret_key = !empty(get_option('sl_main_site_secret_key')) ? get_option('sl_main_site_secret_key') : Share_Login_Helper::generateRandomString(50);
-    $sync_site_url = !empty(get_option('sl_sync_site_url')) ? get_option('sl_sync_site_url') : '';
+    $main_site_secret_key = !empty(get_option('slogin_main_site_secret_key')) ? get_option('slogin_main_site_secret_key') : Share_Login_Helper::generateRandomString(50);
+    $sync_site_url = !empty(get_option('slogin_sync_site_url')) ? get_option('slogin_sync_site_url') : '';
 }elseif($sitetype == 'sync-login'){
 
-    $main_site_url = !empty(get_option('sl_main_site_url')) ? get_option('sl_main_site_url') : '';
-    $main_site_secret_key = !empty(get_option('sl_main_site_secret_key')) ? get_option('sl_main_site_secret_key') : '';
+    $main_site_url = !empty(get_option('slogin_main_site_url')) ? get_option('slogin_main_site_url') : '';
+    $main_site_secret_key = !empty(get_option('slogin_main_site_secret_key')) ? get_option('slogin_main_site_secret_key') : '';
 
 }
 ?>
@@ -31,7 +33,7 @@ if($sitetype == 'main-site'){
             </div>  
             <div class="field">
                 <label>Sync Site URL</label>
-                <input type="text" placeholder="Enter secret key" name="sync_site_url" value="<?php echo esc_attr($sync_site_url); ?>">
+                <input type="text" placeholder="Enter Sync Site URL" name="sync_site_url" value="<?php echo esc_attr($sync_site_url); ?>">
             </div>  
         </div>
     </div>
@@ -42,7 +44,7 @@ if($sitetype == 'main-site'){
         <div class="grouped fields">
             <div class="field">
                 <label>Main Site URL</label>
-                <input type="text" placeholder="Enter secret key" name="main_site_url" value="<?php echo esc_attr($main_site_url); ?>">
+                <input type="text" placeholder="Enter Main Site URL" name="main_site_url" value="<?php echo esc_attr($main_site_url); ?>">
             </div>  
             <div class="field">
                 <label>Main Site Secret Key</label>

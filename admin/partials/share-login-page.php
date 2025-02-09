@@ -1,6 +1,8 @@
 <?php
-$setup_complete = get_option('sl_setup_complete', false);
-$sitetype = $setup_complete ? get_option('sl_sitetype', '') : '';
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
+$setup_complete = get_option('slogin_setup_complete', false);
+$sitetype = $setup_complete ? get_option('slogin_sitetype', '') : '';
 ?>
 
 <?php if(!$setup_complete || $sitetype == ''): ?>
@@ -19,10 +21,10 @@ $sitetype = $setup_complete ? get_option('sl_sitetype', '') : '';
 
 <?php elseif($sitetype == 'main-site'): ?>
 
-<?php require_once SL_PLUGIN_PATH . 'admin/partials/share-login-main-site.php'; ?>
+<?php require_once SLOGIN_PLUGIN_PATH . 'admin/partials/share-login-main-site.php'; ?>
 
 <?php elseif($sitetype == 'sync-login'): ?>
 
-<?php require_once SL_PLUGIN_PATH . 'admin/partials/share-login-sync-login.php'; ?>
+<?php require_once SLOGIN_PLUGIN_PATH . 'admin/partials/share-login-sync-login.php'; ?>
 
 <?php endif; ?>

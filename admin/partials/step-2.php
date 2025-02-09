@@ -1,11 +1,13 @@
 <?php
-$sitetype = get_option('sl_sitetype', '');
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
+$sitetype = get_option('slogin_sitetype', '');
 if($sitetype == 'main-site'){
-    $outgoing_logout = !empty(get_option('sl_outgoing_logout')) ? true : false;
-    $outgoing_user_creation = !empty(get_option('sl_outgoing_user_creation')) ? true : false;
+    $outgoing_logout = !empty(get_option('slogin_outgoing_logout')) ? true : false;
+    $outgoing_user_creation = !empty(get_option('slogin_outgoing_user_creation')) ? true : false;
 }elseif($sitetype == 'sync-login'){
-    $incomming_logout = !empty(get_option('sl_incomming_logout')) ? true : false;
-    $incomming_user_creation = !empty(get_option('sl_incomming_user_creation')) ? true : false;
+    $incomming_logout = !empty(get_option('slogin_incomming_logout')) ? true : false;
+    $incomming_user_creation = !empty(get_option('slogin_incomming_user_creation')) ? true : false;
 }
 ?>
 

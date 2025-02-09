@@ -3,7 +3,6 @@
 /**
  * Register all actions and filters for the plugin
  *
- * @link       https://sharelogin.com
  * @since      1.0.0
  *
  * @package    Share_Login
@@ -19,7 +18,7 @@
  *
  * @package    Share_Login
  * @subpackage Share_Login/includes
- * @author     Ashish Kakadiya <ashishkakadiya0002@gmail.com>
+ * @author     ashishkakadiya0002
  */
 class Share_Login_Loader {
 

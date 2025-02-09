@@ -6,7 +6,6 @@
  * A class definition that includes attributes and functions used across both the
  * public-facing side of the site and the admin area.
  *
- * @link       https://sharelogin.com
  * @since      1.0.0
  *
  * @package    Share_Login
@@ -15,7 +14,6 @@
 
 /**
  * The core plugin class.
- *
  * This is used to define internationalization, admin-specific hooks, and
  * public-facing site hooks.
  *
@@ -25,7 +23,7 @@
  * @since      1.0.0
  * @package    Share_Login
  * @subpackage Share_Login/includes
- * @author     Ashish Kakadiya <ashishkakadiya0002@gmail.com>
+ * @author     ashishkakadiya0002
  */
 class Share_Login {
 
@@ -76,7 +74,6 @@ class Share_Login {
 
 		$this->define_costants();
 		$this->load_dependencies();
-		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 
@@ -115,12 +112,6 @@ class Share_Login {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-share-login-loader.php';
 
 		/**
-		 * The class responsible for defining internationalization functionality
-		 * of the plugin.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-share-login-i18n.php';
-
-		/**
 		 * The class responsible for defining ajax functionality
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-share-login-ajax.php';
@@ -140,31 +131,14 @@ class Share_Login {
 
 	}
 
-	/**
-	 * Define the locale for this plugin for internationalization.
-	 *
-	 * Uses the Share_Login_i18n class in order to set the domain and to register the hook
-	 * with WordPress.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 */
-	private function set_locale() {
-
-		$plugin_i18n = new Share_Login_i18n();
-
-		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
-
-	}
-
 	public function define_costants() {
-		define('SL_PLUGIN_URL', plugin_dir_url( dirname( __FILE__ ) ));
-		define('SL_PLUGIN_PATH', plugin_dir_path( dirname( __FILE__ ) ));
-		define('SL_SECRET_KEY', 'your_secret_key_here');
-		define('SL_SITETYPE', get_option('sl_sitetype', ''));
-		define('SL_MAIN_SITE_URL', get_option('sl_main_site_url', ''));
-		define('SL_MAIN_SITE_SECRET_KEY', get_option('sl_main_site_secret_key', ''));
-		define('SL_SYNC_SITE_URL', get_option('sl_sync_site_url', ''));
+		define('SLOGIN_PLUGIN_URL', plugin_dir_url( dirname( __FILE__ ) ));
+		define('SLOGIN_PLUGIN_PATH', plugin_dir_path( dirname( __FILE__ ) ));
+		define('SLOGIN_SECRET_KEY', 'your_secret_key_here');
+		define('SLOGIN_SITETYPE', get_option('slogin_sitetype', ''));
+		define('SLOGIN_MAIN_SITE_URL', get_option('slogin_main_site_url', ''));
+		define('SLOGIN_MAIN_SITE_SECRET_KEY', get_option('slogin_main_site_secret_key', ''));
+		define('SLOGIN_SYNC_SITE_URL', get_option('slogin_sync_site_url', ''));
 	}
 
 	/**
@@ -215,13 +189,13 @@ class Share_Login {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 		
 		
-		if(SL_SITETYPE == 'main-site'){
-			$this->loader->add_action( 'wp_login', $plugin_public, 'sl_after_login', 10, 2 );
-			$this->loader->add_action( 'wp_logout', $plugin_public, 'sl_after_logout', 10, 2 );
-			$this->loader->add_action( 'rest_api_init', $plugin_public, 'sl_register_route', 10, 2 );
-		} elseif(SL_SITETYPE == 'sync-login') {
-			if(!empty(SL_MAIN_SITE_URL) && !empty(SL_MAIN_SITE_SECRET_KEY)){
-				$this->loader->add_action('init', $plugin_public, 'sl_auto_login');
+		if(SLOGIN_SITETYPE == 'main-site'){
+			$this->loader->add_action( 'wp_login', $plugin_public, 'slogin_after_login', 10, 2 );
+			$this->loader->add_action( 'wp_logout', $plugin_public, 'slogin_after_logout', 10, 2 );
+			$this->loader->add_action( 'rest_api_init', $plugin_public, 'slogin_register_route', 10, 2 );
+		} elseif(SLOGIN_SITETYPE == 'sync-login') {
+			if(!empty(SLOGIN_MAIN_SITE_URL) && !empty(SLOGIN_MAIN_SITE_SECRET_KEY)){
+				$this->loader->add_action('init', $plugin_public, 'slogin_auto_login');
 			}
 		}
 	}

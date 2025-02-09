@@ -1,5 +1,7 @@
 <?php
-$sitetype = get_option('sl_sitetype', 'main-site');
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
+$sitetype = get_option('slogin_sitetype', 'main-site');
 ?>
 
 <div class="ui bottom attached red tiny message hidden" id="error-message">

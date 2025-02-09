@@ -3,7 +3,6 @@
 /**
  * The public-facing functionality of the plugin.
  *
- * @link       https://sharelogin.com
  * @since      1.0.0
  *
  * @package    Share_Login
@@ -18,7 +17,7 @@
  *
  * @package    Share_Login
  * @subpackage Share_Login/public
- * @author     Ashish Kakadiya <ashishkakadiya0002@gmail.com>
+ * @author     ashishkakadiya0002
  */
 
 use Firebase\JWT\JWT;
@@ -64,40 +63,41 @@ class Share_Login_Public {
 			'action' => $action,
 			'exp' => time() + 3600 // 1 hour expiry
 		];
-		return JWT::encode($payload, SL_SECRET_KEY, 'HS256');
+		return JWT::encode($payload, SLOGIN_SECRET_KEY, 'HS256');
 	}
 
-	public function sl_after_login($user_login, $user) {
+	public function slogin_after_login($user_login, $user) {
 		$jwt_token = $this->generate_jwt($user->user_login, 'login');
-		setcookie('sl_token', $jwt_token, time() + 3600, '/', '');
+		setcookie('slogin_token', $jwt_token, time() + 3600, '/', '');
 
 		wp_redirect(home_url());
 		exit;
 	}
 
-	public function sl_after_logout() {
-		if (isset($_COOKIE['sl_token'])) {
+	public function slogin_after_logout() {
+		if (isset($_COOKIE['slogin_token'])) {
 			$user = wp_get_current_user();
 			$jwt_token = $this->generate_jwt($user->user_login, 'logout');
-			setcookie('sl_token', $jwt_token, time() + 3600, '/', '');
+			setcookie('slogin_token', $jwt_token, time() + 3600, '/', '');
 		}
 	}
 
-	public function sl_register_route() {
+	public function slogin_register_route() {
 		register_rest_route('ol/v1', '/validate', [
 			'methods' => 'POST',
-			'callback' => [$this, 'sl_validate_token'],
+			'callback' => [$this, 'slogin_validate_token'],
+			'permission_callback' => '__return_true'
 		]);
 	}
 
-	public function sl_validate_token($request) {
+	public function slogin_validate_token($request) {
 		$token = $request['token'];
 		$secret_key = $request['secret_key'];
-		if($secret_key != SL_MAIN_SITE_SECRET_KEY){
+		if($secret_key != SLOGIN_MAIN_SITE_SECRET_KEY){
 			return new WP_Error('invalid_secret_key', 'Invalid secret key', ['status' => 401]);
 		}
 		try {
-			$decoded = JWT::decode($token, new Key(SL_SECRET_KEY, 'HS256'));
+			$decoded = JWT::decode($token, new Key(SLOGIN_SECRET_KEY, 'HS256'));
 			return [
 				'status' => true, 
 				'username' => $decoded->username,
@@ -109,34 +109,38 @@ class Share_Login_Public {
 	}
 
 
-	public function sl_auto_login() {
-		
-		if(!isset($_COOKIE['sl_token_recieved'])){
+	public function slogin_auto_login() {
+		if (!isset($_COOKIE['slogin_token_recieved'])) {
 			return;
 		}
-		$token = wp_unslash($_COOKIE['sl_token_recieved']);
+		
+		// Sanitize and validate the cookie value
+		$token = sanitize_text_field(wp_unslash($_COOKIE['slogin_token_recieved']));
+		if (empty($token)) {
+			return;
+		}
 
-		$response = wp_remote_post(SL_MAIN_SITE_URL . '/wp-json/ol/v1/validate', [
-			'body' => ['secret_key' => SL_MAIN_SITE_SECRET_KEY, 'token' => $token]
+		$response = wp_remote_post(SLOGIN_MAIN_SITE_URL . '/wp-json/ol/v1/validate', [
+			'body' => ['secret_key' => SLOGIN_MAIN_SITE_SECRET_KEY, 'token' => $token]
 		]);
 		$body = json_decode(wp_remote_retrieve_body($response), true);
 		
 		if(!isset($body['status']) || $body['status'] !== true){
-			// $this->sl_logout();
+			// $this->slogin_logout();
 			return;
 		}
 		
 		if($body['action'] == 'login'){
-			$this->sl_login($body['username']);
+			$this->slogin_login($body['username']);
 		}
 
 		if($body['action'] == 'logout'){
-			$this->sl_logout();
+			$this->slogin_logout();
 		}
 
 	}
 
-	public function sl_login($username){
+	public function slogin_login($username){
 		$user = get_user_by('login', $username);
 		if(!$user){
 			return;
@@ -153,7 +157,7 @@ class Share_Login_Public {
 		}
 	}
 
-	public function sl_logout(){
+	public function slogin_logout(){
 		wp_logout();
 	}
 
@@ -164,7 +168,6 @@ class Share_Login_Public {
 	 */
 	public function enqueue_styles() {
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/share-login-public.css', array(), $this->version, 'all' );
 
 	}
 
@@ -178,11 +181,11 @@ class Share_Login_Public {
 		wp_enqueue_script( $this->plugin_name . '-public', plugin_dir_url( __FILE__ ) . 'js/share-login-public.js', array( 'jquery' ), $this->version, false );
 		wp_localize_script( $this->plugin_name . '-public', 'shareLogin', Share_Login_Helper::localize_data() );
 		
-		wp_enqueue_script( $this->plugin_name . 'cross-storage-client', SL_PLUGIN_URL . 'public/js/client.min.js', array( 'jquery' ), $this->version, false );
-		if(SL_SITETYPE == 'main-site') {
-			wp_enqueue_script( $this->plugin_name . '-client1', SL_PLUGIN_URL . 'public/js/share-login-client1.js', array( 'jquery' ), $this->version, false );
-		}elseif(SL_SITETYPE == 'sync-login') {
-			wp_enqueue_script( $this->plugin_name . '-client2', SL_PLUGIN_URL . 'public/js/share-login-client2.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name . 'cross-storage-client', SLOGIN_PLUGIN_URL . 'public/js/cross-storage/client.min.js', array( 'jquery' ), $this->version, false );
+		if(SLOGIN_SITETYPE == 'main-site') {
+			wp_enqueue_script( $this->plugin_name . '-client1', SLOGIN_PLUGIN_URL . 'public/js/share-login-client1.js', array( 'jquery' ), $this->version, false );
+		}elseif(SLOGIN_SITETYPE == 'sync-login') {
+			wp_enqueue_script( $this->plugin_name . '-client2', SLOGIN_PLUGIN_URL . 'public/js/share-login-client2.js', array( 'jquery' ), $this->version, false );
 		}		
 
 	}
