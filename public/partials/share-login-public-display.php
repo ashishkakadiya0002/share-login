@@ -5,7 +5,7 @@
  *
  * This file is used to markup the public-facing aspects of the plugin.
  *
- * @since      1.0.0
+ * @since      1.1.0
  *
  * @package    Share_Login
  * @subpackage Share_Login/public/partials

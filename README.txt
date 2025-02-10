@@ -4,7 +4,7 @@ Tags: shared login, single sign-on, multi-site login, cross-domain login, sso
 Requires at least: 5.0
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.1.0   
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -80,9 +80,15 @@ Currently, the plugin supports one main site and one sync site configuration. Fu
 * Automatic login synchronization
 * Security token handling
 
+= 1.1.0 =
+* Initial release
+
 == Upgrade Notice ==
 
 = 1.0.0 =
+Initial release of Share Login plugin.
+
+= 1.1.0 =
 Initial release of Share Login plugin.
 
 == Configuration ==
